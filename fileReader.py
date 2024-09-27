@@ -43,11 +43,11 @@ def getOpinions(subject):
     # Get the opinions from the file opinions_{subject}.txt
     opinions = []
     # verify if file exist create it if not
-    if not os.path.exists(f'opinions_{subject.strip()}.txt'):
-        with open(f'opinions_{subject.strip()}.txt', 'w') as file:
+    if not os.path.exists(f'data/opinions_{subject.strip()}.txt'):
+        with open(f'data/opinions_{subject.strip()}.txt', 'w') as file:
             file.write('')
             
-    with open(f'opinions_{subject.strip()}.txt', 'r') as file:
+    with open(f'data/opinions_{subject.strip()}.txt', 'r') as file:
         opinions = file.readlines()
     
     for i in range(len(opinions)):
@@ -60,18 +60,18 @@ def addOpinion(subject, opinion, value, username):
     opinions = getOpinions(subject)
     if opinion not in opinions:
         opinions.append(opinion)
-        with open(f'opinions_{subject.strip()}.txt', 'w') as file:
+        with open(f'data/opinions_{subject.strip()}.txt', 'w') as file:
             # split the opinion by newline
             file.writelines(opinion.strip() + '\n' for opinion in opinions)
     lineToAppend=opinions.index(opinion)
     userIndex=getUserIndex(username)
     # verify if file exist create it if not
-    if not os.path.exists(f'opinions_{subject.strip()}_values.txt'):
-        with open(f'opinions_{subject.strip()}_values.txt', 'w') as file:
+    if not os.path.exists(f'data/opinions_{subject.strip()}_values.txt'):
+        with open(f'data/opinions_{subject.strip()}_values.txt', 'w') as file:
             newLine='-1,'*getNumberOfUsers()
             newLine=newLine[:-1]+'\n'
             file.write(newLine)
-    with open(f'opinions_{subject.strip()}_values.txt', 'r') as file:
+    with open(f'data/opinions_{subject.strip()}_values.txt', 'r') as file:
         fh, abs_path = mkstemp()
         with fdopen(fh,'w') as new_file:
             done=False
@@ -95,7 +95,7 @@ def addOpinion(subject, opinion, value, username):
                 newLine=newLine[:-1]+'\n'
                 new_file.write(newLine)
                 
-    file_path=f'opinions_{subject.strip()}_values.txt'
+    file_path=f'data/opinions_{subject.strip()}_values.txt'
     #Copy the file permissions from the old file to the new file
     copymode(file_path, abs_path)
     #Remove original file
@@ -109,10 +109,10 @@ def getValuesForOpinions(subject,username):
     userIndex=getUserIndex(username)
     values=[]
     # verify if file exist create it if not
-    if not os.path.exists(f'opinions_{subject.strip()}_values.txt'):
+    if not os.path.exists(f'data/opinions_{subject.strip()}_values.txt'):
         values=['']*len(getOpinions(subject))
         return values
-    with open(f'opinions_{subject.strip()}_values.txt', 'r') as file:
+    with open(f'data/opinions_{subject.strip()}_values.txt', 'r') as file:
         for line in file:
             vote=line.strip().split(',')
             if len(vote)>userIndex:
