@@ -1,0 +1,5 @@
+.venv
+# remove opinion files
+opinion*.txt
+
+__pycache__

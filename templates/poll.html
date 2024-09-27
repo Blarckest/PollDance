@@ -1,0 +1,34 @@
+<!-- present subject and opinions with a field allowing values from 0 to 10 and another field to add opinion -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Poll</title>
+</head>
+<body></body>
+    {% if subject!="Invalid index" %}
+    <h1>Quelle sont vos opinions sur {{subject}}</h1>
+    <form action="/poll/addOpinion/{{index}}" method="post">
+        <label for="new_opinion">Nouvelle opinion:</label>
+        <input type="text" id="new_opinion" name="new_opinion" required>
+        <button type="submit">ajouter</button>
+    </form>
+
+    <form id="opinion_values" action="/poll/{{index}}" method="post">
+        <div style="display: flex; flex-direction: column;">
+            {% for opinion,value in zip(opinions,values) %}
+                <div style="display: flex; flex-direction: row;">
+                    <label for="{{opinion}}">{{opinion}}</label>
+                    <input type="number" id="{{opinion}}" name="{{opinion}}" min="0" max="10" required value="{{value}}">
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+    <a href="/poll/{{index-1}}">
+        <button>Précedent</button>
+    </a>
+    <button type="submit" form="opinion_values">Suivant</button>
+    {% else %}
+    <h1>Le sondage est fini</h1>
+    {% endif %}
+</html>
