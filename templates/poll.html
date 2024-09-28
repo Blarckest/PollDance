@@ -4,31 +4,49 @@
 <html>
 <head>
     <title>Poll</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body></body>
-    {% if subject!="Invalid index" %}
-    <h1>Quelle sont vos opinions sur {{subject}}</h1>
-    <form action="/poll/addOpinion/{{index}}" method="post">
-        <label for="new_opinion">Nouvelle opinion:</label>
-        <input type="text" id="new_opinion" name="new_opinion" required>
-        <button type="submit">ajouter</button>
-    </form>
+<body>
+    <div class="container mt-5">
+        {% if subject!="Invalid index" %}
+        <h1 class="mb-4">Quelle sont vos opinions sur {{subject}}</h1>
+        
+        <form action="/poll/addOpinion/{{index}}" method="post" class="mb-4">
+            <div class="form-group">
+                <label for="new_opinion">Nouvelle opinion:</label>
+                <input type="text" id="new_opinion" name="new_opinion" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
 
-    <form id="opinion_values" action="/poll/{{index}}" method="post">
-        <div style="display: flex; flex-direction: column;">
-            {% for opinion,value in zip(opinions,values) %}
-                <div style="display: flex; flex-direction: row;">
-                    <label for="{{opinion}}">{{opinion}}</label>
-                    <input type="number" id="{{opinion}}" name="{{opinion}}" min="0" max="10" required value="{{value}}">
+        <form id="opinion_values" action="/poll/{{index}}" method="post">
+            <div class="form-group">
+                {% for opinion,value in zip(opinions,values) %}
+                <div class="form-row align-items-center mb-2">
+                    <div class="col-auto">
+                        <label for="{{opinion}}" class="col-form-label">{{opinion}}</label>
+                    </div>
+                    <div class="col">
+                        <input type="number" id="{{opinion}}" name="{{opinion}}" class="form-control" min="0" max="10" required value="{{value}}">
+                    </div>
                 </div>
-            {% endfor %}
-        </div>
-    </form>
-    <a href="/poll/{{index-1}}">
-        <button>Précedent</button>
-    </a>
-    <button type="submit" form="opinion_values">Suivant</button>
-    {% else %}
-    <h1>Le sondage est fini</h1>
-    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="d-flex justify-content-between">
+                {% if index>0 %}
+                <a href="/poll/{{index-1}}" class="btn btn-secondary">Précedent</a>
+                {% else %}  
+                <a href="/poll/{{index}}" class="btn btn-secondary disabled">Précedent</a>
+                {% endif %}
+                <button type="submit" form="opinion_values" class="btn btn-primary">Suivant</button>
+            </div>
+        </form>
+        {% else %}
+        <h1 class="text-center">Le sondage est fini</h1>
+        {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
