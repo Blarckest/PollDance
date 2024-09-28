@@ -5,10 +5,44 @@
     <title>Login</title>
 </head>
 <body>
+    <p>
+        Bienvenue sur Polldance. Cette application vous permet de donner votre avis sur les cours de l'ISIMA.
+    </p>
     <form action="/login" method="post">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
         <button type="submit">OK</button>
     </form>
+    <p>
+        Votre nom d'utilisateur se compose des 2 premières lettres de votre prénom suivies de votre nom de famille. Exemple : Jean Dupont -> jedupont.
+    </p>
+    <p>
+        Fonctionnement de l'application:
+        <ul>
+            <li>
+                Vous pouvez ajouter des avis sur les cours. CHAQUE AVIS DOIT ÉVOQUER UNE SEULE IDÉE.
+                <ul>
+                    Exemple: avis voulant être donné: "Le cours est très intéressant et le professeur est très pédagogue."
+                    Ce commentaire doit être séparé en deux avis (opinions) distincts:
+                    <li>"Le cours est très intéressant."</li>
+                    <li>"Le professeur est très pédagogue."</li>
+                </ul>
+                Ceci permet d'éviter les doublons et de faciliter la lecture des avis.
+            </li>
+            <li>
+                Vous pouvez consulter les avis des autres utilisateurs. Et voter pour les avis qui vous semblent pertinents. note de 0 à 10. 0: pas d'accord, 5: neutre, 10: tout à fait d'accord.
+            </li>
+            <li>
+                Merci de rester courtois et respectueux dans vos avis. Cela n'empeche pas de donner un avis critique ou négatif.
+            </li>
+            <li>
+                On ne peux pas relier un avis à un utilisateur. Les avis sont anonymes. Tout comme les notes.
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        Si vous voulez contribuer à l'amélioration de l'application, vous pouvez consulter le code source sur <a href="https://gitlab.isima.fr/yogourves/polldance">Gitlab</a>.
+    </p>
 </body>
 </html>
