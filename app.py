@@ -61,5 +61,7 @@ def results(index):
         return redirect(url_for('login'))
     if not isUserAuthorized() or not isAdministrator():
         return "You are not authorized to view this page"
+    if index is None:
+        index = 0
     subject = getSubjects(index)
     return render_template('results.html', subject=subject, results=getHumanReadableResults(subject), index=index)

@@ -136,6 +136,9 @@ def getResults(subject):
     results=[] # list of tuples (opinion, votes)
     opinions=getOpinions(subject)
     allVotes=[]
+    # verify if file return empty list if not exist
+    if not os.path.exists(f'data/opinions_{subject.strip()}_values.txt'):
+        return results
     with open(f'data/opinions_{subject.strip()}_values.txt', 'r') as file:
         for line in file:
             votes=line.strip().split(',')
@@ -153,5 +156,7 @@ def getHumanReadableResults(subject):
     for result in results:
         opinion=result[0]
         votes=result[1]
-        humanReadableResults.append((opinion, getCategory(votes), sum(votes)/len(votes) if len(votes)>0 else 0, len(votes)/numberOfUser))
+        # if no votes, don't add the opinion
+        if len(votes)>0:
+            humanReadableResults.append((opinion, getCategory(votes), sum(votes)/len(votes) if len(votes)>0 else 0, len(votes)/numberOfUser))
     return humanReadableResults # list of tuples (opinion, category, average, participation)
