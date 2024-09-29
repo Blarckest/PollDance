@@ -7,6 +7,16 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Poll</a>
+            <div class="ml-auto">
+                <span class="navbar-text">
+                    Utilisateur: {{ session['username'] }}
+                </span>
+            </div>
+        </div>
+    </nav>
     <div class="container mt-5">
         {% if subject!="Invalid index" %}
         <h1 class="mb-4">Quelles sont vos opinions sur {{subject}}</h1>

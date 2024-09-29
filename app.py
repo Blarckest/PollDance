@@ -26,7 +26,7 @@ def poll(index):
     if index is None:
         index = 0
     subject = getSubjects(index)
-    return render_template('poll.html', subject=subject, opinions=getOpinions(subject), isAdmin=isAdministrator(), index=index, values=getValuesForOpinions(subject, session['username']), zip=zip)
+    return render_template('poll.html', subject=subject, opinions=getOpinions(subject), isAdmin=isAdministrator(), index=index, values=getValuesForOpinions(subject, session['username']), zip=zip, session=session)
 
 @app.route('/poll/<int:index>', methods=['POST'])
 def submit_poll(index):
@@ -64,4 +64,4 @@ def results(index):
     if index is None:
         index = 0
     subject = getSubjects(index)
-    return render_template('results.html', subject=subject, results=getHumanReadableResults(subject), index=index)
+    return render_template('results.html', subject=subject, results=getHumanReadableResults(subject), index=index, session=session)

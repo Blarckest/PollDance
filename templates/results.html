@@ -6,7 +6,14 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Poll</a>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Poll</a>
+            <div class="ml-auto">
+                <span class="navbar-text">
+                    Utilisateur: {{ session['username'] }}
+                </span>
+            </div>
+        </div>
     </nav>
     <div class="container mt-5">
         {% if subject!="Invalid index" %}
