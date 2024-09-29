@@ -22,12 +22,20 @@
         <form id="opinion_values" action="/poll/{{index}}" method="post">
             <div class="form-group">
                 {% for opinion,value in zip(opinions,values) %}
-                <div class="form-row align-items-center mb-2">
+                <div class="form-col align-items-center mb-2">
                     <div class="col-auto">
                         <label for="{{opinion}}" class="col-form-label">{{opinion}}</label>
                     </div>
                     <div class="col">
-                        <input type="number" id="{{opinion}}" name="{{opinion}}" class="form-control" min="0" max="10" required value="{{value}}">
+                        <!-- <input type="number" id="{{opinion}}" name="{{opinion}}" class="form-control" min="0" max="10" required value="{{value}}"> -->
+                    <input type="range" id="{{opinion}}" name="{{opinion}}" class="form-control-range" min="2" max="10" step="2" value="{{value}}">
+                    <div class="d-flex justify-content-between">
+                        <span>Fortement en désaccord</span>
+                        <span>En désaccord</span>
+                        <span>Neutre</span>
+                        <span>D'accord</span>
+                        <span>Fortement d'accord</span>
+                    </div>
                     </div>
                 </div>
                 {% endfor %}
@@ -48,6 +56,19 @@
         <h1 class="text-center">Le sondage est fini</h1>
         {% endif %}
     </div>
+    <script>
+        function toggleNoValue(opinionId) {
+            var slider = document.getElementById(opinionId);
+            var checkbox = document.getElementById('noValueCheck');
+            if (checkbox.checked) {
+                slider.value = '';
+                slider.disabled = true;
+            } else {
+                slider.disabled = false;
+                slider.value = slider.getAttribute('value');
+            }
+        }
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
