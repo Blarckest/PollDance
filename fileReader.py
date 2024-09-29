@@ -4,12 +4,23 @@ from shutil import copymode, move
 from tempfile import mkstemp
 from flask import session
 
+from category import getCategory
+
 
 def isUserAuthorized():
     # Check if the user is authorized by checking if the session username is contained in the multiline file authorizedUser.txt
     with open('authorizedUser.txt', 'r') as file:
         authorizedUsers = file.readlines()
         for user in authorizedUsers:
+            if session['username'] in user:
+                return True
+    return False
+
+def isAdministrator():
+    # Check if the user is an administrator by checking if the session username is contained in the file administrator.txt
+    with open('administrator.txt', 'r') as file:
+        administrators = file.readlines()
+        for user in administrators:
             if session['username'] in user:
                 return True
     return False
@@ -119,3 +130,28 @@ def getValuesForOpinions(subject,username):
                 values.append(vote[userIndex] if vote[userIndex]!='-1' else '')
 
     return values
+
+def getResults(subject):
+    # get the results for the opinions from the file opinions_{subject}_values.txt
+    results=[] # list of tuples (opinion, votes)
+    opinions=getOpinions(subject)
+    allVotes=[]
+    with open(f'data/opinions_{subject.strip()}_values.txt', 'r') as file:
+        for line in file:
+            votes=line.strip().split(',')
+            allVotes.append(votes)
+    for i in range(len(opinions)):
+        votes=[int(vote) for vote in allVotes[i] if vote!='-1']
+        results.append((opinions[i],votes))
+    return results
+
+def getHumanReadableResults(subject):
+    # get the human readable results for the opinions from the file opinions_{subject}_values.txt
+    results=getResults(subject)
+    numberOfUser=getNumberOfUsers()
+    humanReadableResults=[]
+    for result in results:
+        opinion=result[0]
+        votes=result[1]
+        humanReadableResults.append((opinion, getCategory(votes), sum(votes)/len(votes) if len(votes)>0 else 0, len(votes)/numberOfUser))
+    return humanReadableResults # list of tuples (opinion, category, average, participation)

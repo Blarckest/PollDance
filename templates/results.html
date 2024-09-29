@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Poll</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <dv class="container mt-5">
+    {% if subject!="Invalid index" %}
+    <h1 class="mb-4">Voici quelles sont les opinions sur {{subject}}</h1>
+        {% for result in results %} 
+        <!-- print results formatted as list of tuples (opinion, category, average, participation) showing as {subject}: {category} ({participation}) -->
+         <p>
+            {{result[0]}}: {{result[1]}} (participation: {{result[3]}}%, moyennes des votes: {{result[2]}})
+         </p>
+        {% endfor %}
+        <div class="d-flex justify-content-between">
+            {% if index>0 %}
+            <a href="/poll/{{index-1}}" class="btn btn-secondary">Précedent</a>
+            {% else %}  
+            <a href="/poll/{{index}}" class="btn btn-secondary disabled">Précedent</a>
+            {% endif %}
+            <button type="submit" form="opinion_values" class="btn btn-primary">Suivant</button>
+        </div>
+    {% else %}
+    <h1 class="text-center">Le sondage est fini</h1>
+    {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </body>
+</html>

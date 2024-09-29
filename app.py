@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session
 
-from fileReader import addOpinion, getOpinions, getSubjects, getValuesForOpinions, isUserAuthorized
+from fileReader import addOpinion, getHumanReadableResults, getOpinions, getSubjects, getValuesForOpinions, isAdministrator, isUserAuthorized
 
 app = Flask(__name__)
 
@@ -54,3 +54,12 @@ def add_opinion(index):
     opinion = request.form['new_opinion']
     addOpinion(subject, opinion, -1, session['username'])
     return redirect(url_for('poll', index=index))
+
+@app.route('/results/<int:index>', methods=['GET'])
+def results(index):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    if not isUserAuthorized() or not isAdministrator():
+        return "You are not authorized to view this page"
+    subject = getSubjects(index)
+    return render_template('results.html', subject=subject, results=getHumanReadableResults(subject), index=index)
