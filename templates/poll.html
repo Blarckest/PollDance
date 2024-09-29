@@ -38,6 +38,9 @@
                 {% else %}  
                 <a href="/poll/{{index}}" class="btn btn-secondary disabled">Précedent</a>
                 {% endif %}
+                {% if isAdmin %}
+                <a href="/results/{{index}}" class="btn btn-primary">Résultats</a>
+                {% endif %}
                 <button type="submit" form="opinion_values" class="btn btn-primary">Suivant</button>
             </div>
         </form>
