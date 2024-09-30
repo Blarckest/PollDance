@@ -12,7 +12,7 @@ def isUserAuthorized():
     with open('data/config/authorizedUser.txt', 'r') as file:
         authorizedUsers = file.readlines()
         for user in authorizedUsers:
-            if session['username'] in user:
+            if session['username'] == user.strip():
                 return True
     return False
 
@@ -21,7 +21,7 @@ def isAdministrator():
     with open('data/config/administrator.txt', 'r') as file:
         administrators = file.readlines()
         for user in administrators:
-            if session['username'] in user:
+            if session['username'] == user.strip():
                 return True
     return False
 
