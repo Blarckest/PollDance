@@ -9,7 +9,7 @@ from category import getCategory
 
 def isUserAuthorized():
     # Check if the user is authorized by checking if the session username is contained in the multiline file authorizedUser.txt
-    with open('authorizedUser.txt', 'r') as file:
+    with open('data/config/authorizedUser.txt', 'r') as file:
         authorizedUsers = file.readlines()
         for user in authorizedUsers:
             if session['username'] in user:
@@ -18,7 +18,7 @@ def isUserAuthorized():
 
 def isAdministrator():
     # Check if the user is an administrator by checking if the session username is contained in the file administrator.txt
-    with open('administrator.txt', 'r') as file:
+    with open('data/config/administrator.txt', 'r') as file:
         administrators = file.readlines()
         for user in administrators:
             if session['username'] in user:
@@ -27,13 +27,13 @@ def isAdministrator():
 
 def getNumberOfUsers():
     # Get the number of users from the file authorizedUser.txt
-    with open('authorizedUser.txt', 'r') as file:
+    with open('data/config/authorizedUser.txt', 'r') as file:
         authorizedUsers = file.readlines()
         return len(authorizedUsers)
     
 def getUserIndex(username):
     # Get the index of the user from the file authorizedUser.txt
-    with open('authorizedUser.txt', 'r') as file:
+    with open('data/config/authorizedUser.txt', 'r') as file:
         authorizedUsers = file.readlines()
         for i in range(len(authorizedUsers)):
             if username in authorizedUsers[i]:
@@ -42,7 +42,7 @@ def getUserIndex(username):
 
 def getSubjects(index):
     # Get the subjects from the file subjects.txt
-    with open('subjects.txt', 'r') as file:
+    with open('data/config/subjects.txt', 'r') as file:
         subjects = file.readlines()
         if index is None:
             return subjects
