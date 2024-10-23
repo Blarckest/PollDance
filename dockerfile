@@ -13,7 +13,9 @@ VOLUME /app/data
 
 USER 1000
 
-CMD ["flask", "run", "--host=0.0.0.0"]
+# CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
 
-
-# docker build -t coucou619/polldance:v1 .
+# docker build -t coucou619/polldance:v3 .
+# docker run -p 5000:5000 coucou619/polldance:v3
+# docker push coucou619/polldance:v3
