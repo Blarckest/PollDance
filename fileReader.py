@@ -153,10 +153,13 @@ def getHumanReadableResults(subject):
     results=getResults(subject)
     numberOfUser=getNumberOfUsers()
     humanReadableResults=[]
+    labels = ['Fortement en désaccord', 'En désaccord', 'Neutre', 'D’accord', 'Fortement d’accord']
+    values = [2, 4, 6, 8, 10]
     for result in results:
         opinion=result[0]
         votes=result[1]
         # if no votes, don't add the opinion
         if len(votes)>0:
-            humanReadableResults.append((opinion, getCategory(votes), sum(votes)/len(votes) if len(votes)>0 else 0, len(votes)/numberOfUser))
+            vote_counts = [votes.count(value) for value in values]
+            humanReadableResults.append((opinion, getCategory(votes), sum(votes)/len(votes) if len(votes)>0 else 0, len(votes)/numberOfUser*100, vote_counts, labels))
     return humanReadableResults # list of tuples (opinion, category, average, participation)
