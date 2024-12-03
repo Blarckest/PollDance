@@ -35,7 +35,6 @@
         <div class="container mt-5">
             {% if subject!="Invalid index" %}
             <h1 class="mb-4">Quelles sont vos opinions sur {{subject}}</h1>
-        
             <form action="/poll/addOpinion/{{index}}" method="post" class="mb-4">
                 <div class="form-group">
                     <label for="new_opinion">Nouvelle opinion:</label>
@@ -43,7 +42,6 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Ajouter</button>
             </form>
-        
             <form id="opinion_values" action="/poll/{{index}}" method="post">
                 <div class="form-group">
                     {% for opinion,value in zip(opinions,values) %}
@@ -55,39 +53,32 @@
                             <div class="d-flex justify-content-between">
                                 <div class="form-check text-center">
                                     <div class="d-flex flex-column align-items-center">
-                                        <input class="form-check-input m-auto" type="radio" name="{{opinion}}"
-                                            id="{{opinion}}_2" value="2" {% if value=='2' %}checked{% endif %}>
-                                        <label class="form-check-label mt-3 mx-2" for="{{opinion}}_2">Fortement en
-                                            désaccord</label>
+                                        <input class="form-check-input m-auto" type="radio" name="{{opinion}}" id="{{opinion}}_2" value="2" {% if value=='2' %}checked{% endif %}>
+                                        <label class="form-check-label mt-3 mx-2" for="{{opinion}}_2">Fortement en désaccord</label>
                                     </div>
                                 </div>
                                 <div class="form-check text-center">
                                     <div class="d-flex flex-column align-items-center">
-                                        <input class="form-check-input m-auto" type="radio" name="{{opinion}}"
-                                            id="{{opinion}}_4" value="4" {% if value=='4' %}checked{% endif %}>
+                                        <input class="form-check-input m-auto" type="radio" name="{{opinion}}" id="{{opinion}}_4" value="4" {% if value=='4' %}checked{% endif %}>
                                         <label class="form-check-label mt-3 mx-2" for="{{opinion}}_4">En désaccord</label>
                                     </div>
                                 </div>
                                 <div class="form-check text-center">
                                     <div class="d-flex flex-column align-items-center">
-                                        <input class="form-check-input m-auto" type="radio" name="{{opinion}}"
-                                            id="{{opinion}}_6" value="6" {% if value=='6' %}checked{% endif %}>
+                                        <input class="form-check-input m-auto" type="radio" name="{{opinion}}" id="{{opinion}}_6" value="6" {% if value=='6' %}checked{% endif %}>
                                         <label class="form-check-label mt-3 mx-2" for="{{opinion}}_6">Neutre</label>
                                     </div>
                                 </div>
                                 <div class="form-check text-center">
                                     <div class="d-flex flex-column align-items-center">
-                                        <input class="form-check-input m-auto" type="radio" name="{{opinion}}"
-                                            id="{{opinion}}_8" value="8" {% if value=='8' %}checked{% endif %}>
+                                        <input class="form-check-input m-auto" type="radio" name="{{opinion}}" id="{{opinion}}_8" value="8" {% if value=='8' %}checked{% endif %}>
                                         <label class="form-check-label mt-3 mx-2" for="{{opinion}}_8">D'accord</label>
                                     </div>
                                 </div>
                                 <div class="form-check text-center">
                                     <div class="d-flex flex-column align-items-center">
-                                        <input class="form-check-input m-auto" type="radio" name="{{opinion}}"
-                                            id="{{opinion}}_10" value="10" {% if value=='10' %}checked{% endif %}>
-                                        <label class="form-check-label mt-3 mx-2" for="{{opinion}}_10">Fortement
-                                            d'accord</label>
+                                        <input class="form-check-input m-auto" type="radio" name="{{opinion}}" id="{{opinion}}_10" value="10" {% if value=='10' %}checked{% endif %}>
+                                        <label class="form-check-label mt-3 mx-2" for="{{opinion}}_10">Fortement d'accord</label>
                                     </div>
                                 </div>
                             </div>
