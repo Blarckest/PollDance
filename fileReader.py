@@ -33,7 +33,7 @@ def isFirstConnection():
             if session['username'] == user.strip().split(':')[0] and len(user.strip().split(':'))==1:
                 return True
 
-def updatePin(usename, newPin):
+def updatePin(username, newPin):
     # update the pin of the user in the file authorizedUser.txt
     file_path='data/config/authorizedUser.txt'
     with open(file_path, 'r') as file:
@@ -41,8 +41,8 @@ def updatePin(usename, newPin):
     fh, abs_path = mkstemp()
     with fdopen(fh,'w') as new_file:
         for user in authorizedUsers:
-            if usename == user.strip().split(':')[0]:
-                new_file.write(f'{usename}:{newPin}\n')
+            if username == user.strip().split(':')[0]:
+                new_file.write(f'{username}:{newPin}\n')
             else:
                 new_file.write(user)
     #Copy the file permissions from the old file to the new file
@@ -59,8 +59,8 @@ def updatePin(usename, newPin):
     fh, abs_path = mkstemp()
     with fdopen(fh,'w') as new_file:
         for user in administrators:
-            if usename == user.strip().split(':')[0]:
-                new_file.write(f'{usename}:{newPin}\n')
+            if username == user.strip().split(':')[0]:
+                new_file.write(f'{username}:{newPin}\n')
             else:
                 new_file.write(user)
     #Copy the file permissions from the old file to the new file
