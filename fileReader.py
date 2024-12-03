@@ -94,10 +94,10 @@ def addOpinion(subject, opinion, value, username):
                     new_file.write(newLine)
                 elif i==lineToAppend:
                     newLine=line
-                    values=newLine.split(',')
+                    values=newLine.strip().split(',')
                     values[userIndex]=str(value)
                     newLine=','.join(values)
-                    new_file.write(newLine)
+                    new_file.write(newLine+'\n')
                     done=True
                 else:
                     new_file.write(line)
