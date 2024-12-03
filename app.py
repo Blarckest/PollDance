@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session
 
-from fileReader import addOpinion, getHumanReadableResults, getOpinions, getSubjects, getValuesForOpinions, isAdministrator, isUserAuthorized
+from fileReader import addOpinion, isFirstConnection, updatePin, getHumanReadableResults, getOpinions, getSubjects, getValuesForOpinions, isAdministrator, isUserAuthorized
 
 app = Flask(__name__)
 
@@ -15,6 +15,9 @@ def login():
 @app.route('/login', methods=['POST'])
 def login_user():
     session['username'] = request.form['username']
+    session['pin'] = request.form['pin']
+    if isFirstConnection():
+        updatePin(session['username'], session['pin'])
     return redirect(url_for('poll', index=0))
 
 @app.route('/poll/<int:index>')

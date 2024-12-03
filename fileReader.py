@@ -12,7 +12,7 @@ def isUserAuthorized():
     with open('data/config/authorizedUser.txt', 'r') as file:
         authorizedUsers = file.readlines()
         for user in authorizedUsers:
-            if session['username'] == user.strip():
+            if session['username'] == user.strip().split(':')[0] and session['pin'] == user.strip().split(':')[1]:
                 return True
     return False
 
@@ -21,9 +21,54 @@ def isAdministrator():
     with open('data/config/administrator.txt', 'r') as file:
         administrators = file.readlines()
         for user in administrators:
-            if session['username'] == user.strip():
+            if session['username'] == user.strip().split(':')[0] and session['pin'] == user.strip().split(':')[1]:
                 return True
     return False
+
+def isFirstConnection():
+    # check if it is first user connection by checking if the username not is followed by hashed pin
+    with open('data/config/authorizedUser.txt', 'r') as file:
+        authorizedUsers = file.readlines()
+        for user in authorizedUsers:
+            if session['username'] == user.strip().split(':')[0] and len(user.strip().split(':'))==1:
+                return True
+
+def updatePin(usename, newPin):
+    # update the pin of the user in the file authorizedUser.txt
+    file_path='data/config/authorizedUser.txt'
+    with open(file_path, 'r') as file:
+        authorizedUsers = file.readlines()
+    fh, abs_path = mkstemp()
+    with fdopen(fh,'w') as new_file:
+        for user in authorizedUsers:
+            if usename == user.strip().split(':')[0]:
+                new_file.write(f'{usename}:{newPin}\n')
+            else:
+                new_file.write(user)
+    #Copy the file permissions from the old file to the new file
+    copymode(file_path, abs_path)
+    #Remove original file
+    remove(file_path)
+    #Move new file
+    move(abs_path, file_path)
+
+    # make the same for administrator.txt
+    file_path='data/config/administrator.txt'
+    with open(file_path, 'r') as file:
+        administrators = file.readlines()
+    fh, abs_path = mkstemp()
+    with fdopen(fh,'w') as new_file:
+        for user in administrators:
+            if usename == user.strip().split(':')[0]:
+                new_file.write(f'{usename}:{newPin}\n')
+            else:
+                new_file.write(user)
+    #Copy the file permissions from the old file to the new file
+    copymode(file_path, abs_path)
+    #Remove original file
+    remove(file_path)
+    #Move new file
+    move(abs_path, file_path)
 
 def getNumberOfUsers():
     # Get the number of users from the file authorizedUser.txt
@@ -36,7 +81,7 @@ def getUserIndex(username):
     with open('data/config/authorizedUser.txt', 'r') as file:
         authorizedUsers = file.readlines()
         for i in range(len(authorizedUsers)):
-            if username in authorizedUsers[i]:
+            if username in authorizedUsers[i].split(':')[0]:
                 return i
     return -1
 

@@ -15,15 +15,20 @@
                         <p class="card-text text-center">
                             Cette application vous permet de donner votre avis sur les cours de l'ISIMA.
                         </p>
-                        <form action="/login" method="post">
+                        <form id="loginForm" action="/login" method="post" onsubmit="hashPassword()">
                             <div class="form-group">
                                 <label for="username">Username:</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
+                                <label for="pin">PIN:</label>
+                                <input type="password" class="form-control" id="pin" name="pin" oninput="validatePIN()" required>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">OK</button>
                         </form>
                         <p class="mt-3">
                             Votre nom d'utilisateur se compose des 2 premières lettres de votre prénom suivies de votre nom de famille. Exemple : Jean Dupont -> jedupont.
+                        </p>
+                        <p class="mt-2">
+                            Lors de votre première connexion, mettez le PIN que vous souhaitez utiliser pour vous connecter à l'avenir. Pour le changer, veuillez contactez un administrateur.
                         </p>
                         <p>
                             <strong>Fonctionnement de l'application:</strong>
@@ -62,5 +67,17 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script>
+        function hashPassword() {
+            var pinField = document.getElementById('pin');
+            var hashedPin = CryptoJS.SHA256(pinField.value).toString();
+            pinField.value = hashedPin;
+        }
+        function validatePIN() {
+            var pinField = document.getElementById('pin');
+            pinField.value = pinField.value.replace(/\D/g, '');
+        }
+    </script>
 </body>
 </html>
