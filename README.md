@@ -7,10 +7,10 @@ The project is not made to have maintenable code nor is conceived with security 
 Confidentiality:
 
 
-opinion: untraceable
+- opinion: untraceable
 
 
-grade: owner can find out who gave a grade with a bit of effort.
+- grade: owner can find out who gave a grade with a bit of effort.
 
 
 
